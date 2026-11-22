@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeVault</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">✳</span><span>Life<span class="gold">Vault</span></span></div>
+    <p class="nav-label">WORKSPACE</p>
+    <button class="nav active" data-page="overview">⌂ <span>Overview</span></button>
+    <button class="nav" data-page="documents">▤ <span>My documents</span></button>
+    <button class="nav" data-page="family">♧ <span>Family access</span></button>
+    <button class="nav" data-page="reminders">◷ <span>Reminders</span></button>
+    <p class="nav-label preferences">PREFERENCES</p>
+    <button class="nav" data-page="settings">⚙ <span>Settings</span></button>
+    <div class="profile"><div class="avatar" id="sidebar-avatar">S</div><div><span id="sidebar-name">Shriya</span><small>Personal workspace</small></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar"><div><p class="eyebrow">YOUR PERSONAL ARCHIVE</p><p id="date" class="date"></p></div><div class="avatar small" id="topbar-avatar">S</div></header>
+
+    <section class="page active" id="overview">
+      <div class="welcome">
+        <div><p class="eyebrow">A LITTLE MORE PEACE OF MIND</p><h1>Everything important,<br>in one safe place.</h1><p class="muted" id="welcome-greeting">Good to see you, Shriya. Here's your vault at a glance.</p></div>
+        <button class="primary" id="open-add">＋ Add a document</button>
+      </div>
+      <div class="stats">
+        <article class="stat"><span>Total documents</span><strong id="total">00</strong><small>Across your vault</small></article>
+        <article class="stat"><span>Categories</span><strong>04</strong><small>Neatly organised</small></article>
+        <article class="stat"><span>Expiring soon</span><strong id="soon">00</strong><small>Stay prepared</small></article>
+        <article class="stat"><span>Family members</span><strong id="family-count">00</strong><small>Connected to your vault</small></article>
+      </div>
+      <div class="columns">
+        <section class="card">
+          <div class="card-heading"><div><h2>Recently added</h2><p class="muted">Your latest saved documents</p></div><button class="link" data-goto="documents">View all →</button></div>
+          <input class="search" id="search" placeholder="⌕  Search your documents...">
+          <div class="chips"><button class="chip selected" data-filter="All">All</button><button class="chip" data-filter="Identity">Identity</button><button class="chip" data-filter="Personal">Personal</button><button class="chip" data-filter="Finance">Finance</button></div>
+          <div id="recent-list"></div>
+        </section>
+        <div class="right-stack">
+          <section class="vault-card"><p class="eyebrow">YOUR VAULT</p><h2>A little order goes a long way.</h2><p>Your important papers, thoughtfully gathered and easy to find when you need them.</p><div class="progress"><span></span></div><small>Vault organisation <b>72%</b></small></section>
+          <section class="card"><h2>Coming up</h2><div id="reminder-list"></div><button class="link" data-goto="reminders">All reminders →</button></section>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="documents">
+      <p class="eyebrow">YOUR PERSONAL ARCHIVE</p><h1 class="page-title">My documents</h1><p class="muted">Keep every important file organised and within reach.</p>
+      <section class="card table-card"><div class="card-heading"><h2>All documents</h2><button class="primary" id="open-add-2">＋ Add a document</button></div><div id="all-list"></div></section>
+    </section>
+
+    <section class="page" id="family">
+      <div class="welcome">
+        <div><p class="eyebrow">SHARED, WITH CARE</p><h1 class="page-title">Family access</h1><p class="muted">Choose who is connected to your vault and what access they have.</p></div>
+        <button class="primary" id="open-add-family">＋ Add family member</button>
+      </div>
+      <div class="family-grid" id="family-list"></div>
+      <section class="card note"><h2>Access made thoughtful</h2><p class="muted">Family members added here are stored in your local workspace for this prototype.</p></section>
+    </section>
+
+    <section class="page" id="reminders"><p class="eyebrow">NEVER MISS A DATE</p><h1 class="page-title">Reminders</h1><p class="muted">A gentle nudge before an important document needs attention.</p><section class="card"><h2>Upcoming expiries</h2><div id="all-reminders"></div></section></section>
+    <section class="page" id="settings"><p class="eyebrow">MAKE IT YOURS</p><h1 class="page-title">Settings</h1><section class="card settings"><div class="setting"><div><b>Expiry reminders</b><small>Show upcoming document expiry alerts</small></div><input type="checkbox" checked></div><div class="setting"><div><b>Family activity updates</b><small>Receive updates when shared files change</small></div><input type="checkbox" checked></div><div class="setting"><div><b>Account</b><small id="settings-account">Shriya · Personal workspace</small></div><span class="tag">Owner</span></div><p class="muted disclaimer">Prototype only: this version uses local browser/WebView storage rather than a backend database. Do not add real sensitive documents.</p></section></section>
+  </main>
+</div>
+
+<div class="overlay" id="modal">
+  <form class="modal" id="document-form">
+    <h2>Add to your vault</h2><p class="muted">Add a document record to your personal archive.</p>
+    <label>Document name<input id="doc-name" required placeholder="e.g. Passport"></label>
+    <label>Category<select id="doc-category"><option>Identity</option><option>Personal</option><option>Finance</option><option>Education</option><option>Other</option></select></label>
+    <label>Expiry date (optional, format DD/MM/YYYY)<input id="doc-expiry" type="text" inputmode="numeric" maxlength="10" placeholder="DD/MM/YYYY (e.g. 25/12/2026)"></label>
+    <label>Choose a file (demo only)<input id="doc-file" type="file" accept=".pdf,.png,.jpg,.jpeg"></label>
+    <div class="modal-actions"><button type="button" class="secondary" id="cancel">Cancel</button><button class="primary" type="submit">Save record</button></div>
+  </form>
+</div>
+
+<div class="overlay" id="family-modal">
+  <form class="modal" id="family-form">
+    <h2>Add family member</h2><p class="muted">Choose a family member to connect to your vault.</p>
+    <label>Name<input id="fam-name" required placeholder="e.g. Mom, Dad, Sister, Rohan"></label>
+    <label>Relationship / Access note<input id="fam-role" required placeholder="e.g. Can view selected files"></label>
+    <label>Access level<select id="fam-access"><option>View access</option><option>Selected files</option><option>Emergency access</option></select></label>
+    <div class="modal-actions"><button type="button" class="secondary" id="cancel-family">Cancel</button><button class="primary" type="submit">Add member</button></div>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

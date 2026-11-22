@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeVault | Sign In</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background-color: #f4f1ea;
+            color: #2c3527;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .auth-wrapper {
+            display: flex;
+            width: 860px;
+            max-width: 100%;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(44, 53, 39, 0.12);
+        }
+        .brand-panel {
+            background-color: #3a4632;
+            color: #f4f1ea;
+            width: 44%;
+            padding: 44px 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+        .brand-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1.5px solid #c9c3b3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .brand-copy h1 {
+            font-family: Georgia, serif;
+            font-weight: 400;
+            font-size: 1.9rem;
+            line-height: 1.25;
+            margin-bottom: 14px;
+        }
+        .brand-copy p {
+            color: #cfd3c9;
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+        .brand-footer {
+            font-size: 0.78rem;
+            color: #a8b0a1;
+        }
+        .form-panel {
+            width: 56%;
+            padding: 44px 42px;
+        }
+        .tabs {
+            display: flex;
+            gap: 20px;
+            border-bottom: 1px solid #e6e2d8;
+            margin-bottom: 24px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding-bottom: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #7c8475;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn.active {
+            color: #2c3527;
+            border-bottom-color: #3a4632;
+        }
+        .form-title {
+            font-size: 1.35rem;
+            margin-bottom: 6px;
+        }
+        .form-subtitle {
+            font-size: 0.88rem;
+            color: #6d7567;
+            margin-bottom: 22px;
+        }
+        .field {
+            margin-bottom: 16px;
+        }
+        .field label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #424d3b;
+        }
+        .field input {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #d5d0c4;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            background: #faf9f6;
+            color: #2c3527;
+        }
+        .field input:focus {
+            outline: none;
+            border-color: #3a4632;
+            background: #ffffff;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            background-color: #3a4632;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #2b3525;
+        }
+        .error-msg {
+            color: #b43c3c;
+            font-size: 0.84rem;
+            margin-bottom: 12px;
+            display: none;
+        }
+        .hint {
+            margin-top: 14px;
+            font-size: 0.8rem;
+            color: #7c8475;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="auth-wrapper">
+    <div class="brand-panel">
+        <div class="brand-logo">
+            <div class="brand-badge">*</div>
+            <span>LifeVault</span>
+        </div>
+        <div class="brand-copy">
+            <h1>Everything important, in one safe place.</h1>
+            <p>Organize identity documents, policies, and family records with expiry alerts and offline peace of mind.</p>
+        </div>
+        <div class="brand-footer">Personal & Family Archive</div>
+    </div>
+
+    <div class="form-panel">
+        <div class="tabs">
+            <button type="button" id="loginTab" class="tab-btn active" onclick="switchMode('login')">Sign In</button>
+            <button type="button" id="signupTab" class="tab-btn" onclick="switchMode('signup')">Create Account</button>
+        </div>
+
+        <div id="errorBox" class="error-msg"></div>
+
+        <!-- Sign In Form -->
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <h2 class="form-title">Welcome back</h2>
+            <p class="form-subtitle">Enter your credentials to unlock your vault.</p>
+
+            <div class="field">
+                <label for="loginEmail">Email or Username</label>
+                <input type="text" id="loginEmail" placeholder="shriya@lifevault.app" required>
+            </div>
+
+            <div class="field">
+                <label for="loginPassword">Master Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Unlock Vault</button>
+            <p class="hint">Default demo login: <strong>shriya</strong> / <strong>1234</strong></p>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="signupForm" class="hidden" onsubmit="handleSignup(event)">
+            <h2 class="form-title">Create your vault</h2>
+            <p class="form-subtitle">Set up a personal workspace in seconds.</p>
+
+            <div class="field">
+                <label for="signupName">Full Name</label>
+                <input type="text" id="signupName" placeholder="Shriya" required>
+            </div>
+
+            <div class="field">
+                <label for="signupEmail">Email or Username</label>
+                <input type="text" id="signupEmail" placeholder="shriya@lifevault.app" required>
+            </div>
+
+            <div class="field">
+                <label for="signupPassword">Create Password</label>
+                <input type="password" id="signupPassword" placeholder="Minimum 4 characters" minlength="4" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Create & Open Vault</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Seed default demo user if none exists yet
+    if (!localStorage.getItem('lifevault_user')) {
+        localStorage.setItem('lifevault_user', JSON.stringify({
+            name: 'Shriya',
+            email: 'shriya',
+            password: '1234'
+        }));
+    }
+
+    function switchMode(mode) {
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+        const errorBox = document.getElementById('errorBox');
+
+        errorBox.style.display = 'none';
+
+        if (mode === 'login') {
+            loginForm.classList.remove('hidden');
+            signupForm.classList.add('hidden');
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+        } else {
+            loginForm.classList.add('hidden');
+            signupForm.classList.remove('hidden');
+            loginTab.classList.remove('active');
+            signupTab.classList.add('active');
+        }
+    }
+
+    function showError(msg) {
+        const errorBox = document.getElementById('errorBox');
+        errorBox.textContent = msg;
+        errorBox.style.display = 'block';
+    }
+
+    function handleLogin(event) {
+        event.preventDefault();
+        const enteredUser = document.getElementById('loginEmail').value.trim().toLowerCase();
+        const enteredPass = document.getElementById('loginPassword').value;
+
+        const saved = JSON.parse(localStorage.getItem('lifevault_user'));
+        if (saved && enteredUser === saved.email.toLowerCase() && enteredPass === saved.password) {
+            localStorage.setItem('lifevault_logged_in', 'true');
+            window.location.href = 'index.html';
+        } else {
+            showError('Invalid username or password. Try shriya / 1234 or create an account.');
+        }
+    }
+
+    function handleSignup(event) {
+        event.preventDefault();
+        const name = document.getElementById('signupName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+
+        localStorage.setItem('lifevault_user', JSON.stringify({ name, email, password }));
+        localStorage.setItem('lifevault_logged_in', 'true');
+        window.location.href = 'index.html';
+    }
+</script>
+</body>
+</html>
